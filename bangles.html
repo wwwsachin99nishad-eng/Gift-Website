@@ -8,6 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 </head>
 
 <body>
@@ -22,14 +25,18 @@
     </div>
 
     <header>
-        <div class="logo">Plushieland 🐇</div>
+        <div class="logo">
+            Plushieland 🐇
+            <span class="by-sachin">by Sachin</span>
+        </div>
         <nav>
             <!-- Navigation hidden as requested -->
         </nav>
         <div class="header-icons">
             <button title="Search">🔍</button>
-            <button title="Account">👤</button>
-            <button title="Cart" style="position:relative">
+            <span id="userDisplay" class="logged-in-user"></span>
+            <button title="Account" id="accountBtn" onclick="handleAccountClick()">👤</button>
+            <button title="Cart" style="position:relative" onclick="openCart()">
                 🛒
                 <span class="cart-badge" id="cartCount">0</span>
             </button>
@@ -94,9 +101,17 @@
 
             <div class="cta-buttons fade-up">
                 <button class="btn-cart" onclick="addToCart()">🛒 Add to Cart</button>
-                <button class="btn-buy" id="btnBuyNow" onclick="openCheckout()" disabled>
+                <button class="btn-buy" id="btnBuyNow" onclick="openCheckout()">
                     <span class="btn-buy-icon">⚡</span> Buy Now
                 </button>
+            </div>
+
+            <div class="delivery-highlight fade-up" style="background: #fff9f0; border: 1.5px dashed #ffa000; border-radius: 12px; padding: 12px 18px; display: flex; align-items: center; gap: 12px; margin-bottom: 5px;">
+                <span style="font-size: 1.6rem;">🚚</span>
+                <div>
+                    <strong style="color: #e65100; font-size: 1rem; display: block;">Fast 1-2 Day Delivery</strong>
+                    <span style="font-size: 0.8rem; color: #6d4c41; font-weight: 700;">Safe & Speed delivery by Sachin's Hub</span>
+                </div>
             </div>
 
             <div class="trust-badges fade-up">

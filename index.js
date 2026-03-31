@@ -118,6 +118,16 @@ const images = [
     document.getElementById('checkoutModal').classList.add('open');
     document.getElementById('checkoutStep1').style.display = 'block';
     document.getElementById('checkoutStep2').style.display = 'none';
+    
+    // NEW: Pre-fill Name & Phone if logged in
+    const userPhone = localStorage.getItem('plushieUser');
+    const userName = localStorage.getItem('plushieUserName');
+    if (userPhone) {
+        const custName = document.getElementById('custName');
+        const custPhone = document.getElementById('custPhone');
+        if (custName && userName) custName.value = userName;
+        if (custPhone) custPhone.value = userPhone.replace("+91", "");
+    }
   }
 
   function closeCheckout() {
