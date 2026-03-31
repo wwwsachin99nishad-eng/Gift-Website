@@ -261,7 +261,12 @@ const images = [
 
   function finishOrder() {
     document.getElementById('checkoutStep2').style.display = 'none';
-    document.getElementById('checkoutStep3_UPI').style.display = 'none';
+    if(document.getElementById('checkoutStep3_UPI')) {
+        document.getElementById('checkoutStep3_UPI').style.display = 'none';
+    }
+    
+    // Clear global cart after success
+    if (typeof clearCart === 'function') clearCart();
     
     const randomId = Math.floor(100000 + Math.random() * 900000);
     document.getElementById('randomOrderID').textContent = randomId;

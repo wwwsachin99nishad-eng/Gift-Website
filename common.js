@@ -472,6 +472,12 @@ function getCartTotal() {
     return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
 }
 
+function clearCart() {
+    localStorage.removeItem('plushie_cart');
+    updateCartBadge();
+    renderCart();
+}
+
 function addToCartGlobal(id, name, price, img, quantity = 1) {
     const cart = getCart();
     const existing = cart.find(i => i.id === id);
@@ -501,7 +507,12 @@ function updateCartBadge() {
     
     if (badge) {
         badge.textContent = count;
-        // Force flex display if count > 0, otherwise hide
+        
+        // Add pulse animation
+        badge.classList.remove('cart-bounce');
+        void badge.offsetWidth; // Trigger reflow
+        badge.classList.add('cart-bounce');
+
         if (count > 0) {
             badge.style.display = 'flex';
             badge.style.opacity = '1';
