@@ -98,6 +98,10 @@ function injectAuthModal() {
                     Continue with Google 🔒
                 </button>
 
+                <button class="google-btn" onclick="continueAsGuest()" style="padding: 16px; font-size: 1.1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+                    👤 Continue as Guest
+                </button>
+
                 <div class="auth-trust-badges" style="margin-top: 20px;">
                     <div class="trust-item">Verified SDK</div>
                     <div class="trust-item">SSL Encrypted</div>
@@ -248,6 +252,34 @@ function signInWithGoogle() {
                 showStatus("Google Login Error: " + error.message, "error");
             });
     }
+}
+
+/**
+ * Continue as Guest (Skip Login)
+ */
+function continueAsGuest() {
+    const nameInput = document.getElementById('loginNameManual');
+    const name = nameInput ? nameInput.value.trim() : "";
+    
+    if (!name) {
+        showStatus("Please enter your name first", "error");
+        if (nameInput) nameInput.style.borderColor = "#ff4d6d";
+        return;
+    }
+
+    localStorage.setItem('plushieUser', 'guest');
+    localStorage.setItem('plushieUserName', name);
+    localStorage.setItem('isGuest', 'true');
+    
+    showStatus(`Welcome, ${name}! Proceeding as Guest...`, "success");
+    setTimeout(() => {
+        closeAuthModal();
+        checkLoginStatus();
+        // Pre-fill checkout if exists
+        const custName = document.getElementById('custName');
+        if (custName) custName.value = name;
+        initAdPopup(); // Show ad after proceeding
+    }, 1200);
 }
 
 /**
