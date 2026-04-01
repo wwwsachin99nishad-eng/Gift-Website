@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCountdown();
     setupDeliveryDate();
     initAuth(); // New Auth Init
+    injectQuickViewModal(); // Initialize Quick View
 });
 
 // --- FIREBASE & AUTH LOGIC ---
@@ -45,6 +46,8 @@ function initAuth() {
     injectCartModal(); 
     checkLoginStatus();
     updateCartBadge();
+    injectAdPopup();
+    initAdPopup();
 
     // NEW: Auto-open modal for new/non-logged-in users
     const userPhone = localStorage.getItem('plushieUser');
@@ -63,7 +66,7 @@ function injectAuthModal() {
         <div class="modal-overlay" id="authModal">
             <div class="auth-box" style="text-align: center; padding: 40px 30px;">
                 
-                <h2 class="auth-title" style="margin-bottom: 5px; font-size: 1.8rem;">Welcome to Sachin's <br> Delivery Hub 🐰</h2>
+                <h2 class="auth-title" style="margin-bottom: 5px; font-size: 1.8rem;">Welcome to <br> Plushieland Gift Store 🐰</h2>
                 <p class="auth-subtitle" style="margin-bottom: 25px; font-weight: 700; color: #4caf7d;">✅ Official & Secured Partner</p>
 
                 <div class="auth-input-group" style="text-align: left; margin-bottom: 20px;">
@@ -106,7 +109,7 @@ function injectCartModal() {
         <div class="cart-drawer" onclick="event.stopPropagation()">
             <div class="cart-header">
                 <h2 style="font-family: 'Pacifico', cursive; color: var(--deep-pink); margin: 0;">Your Cart 🛍️</h2>
-                <button class="cart-remove-btn" onclick="closeCart()" style="width:36px;height:36px;font-size:1.2rem;">✕</button>
+                <button class="cart-close-btn" onclick="closeCart()">✕</button>
             </div>
             
             <div class="cart-items-list" id="cartItemsContainer">
@@ -129,6 +132,36 @@ function injectCartModal() {
     `;
     modal.onclick = closeCart;
     document.body.appendChild(modal);
+}
+
+/**
+ * Injects the Quick View Modal HTML
+ */
+function injectQuickViewModal() {
+    if (document.getElementById('quickViewModal')) return;
+    const qvHTML = `
+        <div class="modal-overlay" id="quickViewModal" onclick="closeQuickView()">
+            <div class="qv-box" onclick="event.stopPropagation()">
+                <button class="qv-close" onclick="closeQuickView()">✕</button>
+                <div class="qv-img-wrap">
+                    <img id="qvImage" src="" alt="Product Image">
+                </div>
+                <div class="qv-details">
+                    <h2 class="qv-title" id="qvTitle">Product Title</h2>
+                    <div class="qv-price" id="qvPrice">Rs. 0 <span>Rs. 0</span></div>
+                    <p class="qv-desc" id="qvDesc">Product description goes here.</p>
+                    <div class="qv-specs-title">Specifications 🛠️</div>
+                    <div class="qv-specs" id="qvSpecs">
+                        <!-- Specs injected here -->
+                    </div>
+                    <div style="margin-top:auto; padding-top:20px;">
+                        <button class="btn-cart" style="width:100%;" id="qvAddToCartBtn">Quick Add to Cart 🛒</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', qvHTML);
 }
 
 let authMode = 'signIn';
@@ -336,6 +369,7 @@ function loginSuccess(phone, nameFromGoogle = null) {
         const custPhone = document.getElementById('custPhone');
         if (custName) custName.value = name;
         if (custPhone) custPhone.value = phone.replace("+91", "");
+        initAdPopup(); // Show ad after login
     }, 1500);
 }
 
@@ -398,6 +432,46 @@ function startResendTimer() {
             };
         }
     }, 1000);
+}
+
+/**
+ * Injects the Ad Popup HTML
+ */
+function injectAdPopup() {
+    if (document.getElementById('adPopup')) return;
+    const adHTML = `
+        <div class="ad-popup" id="adPopup">
+            <button class="close-ad" onclick="closeAd()">✕</button>
+            <img src="https://rukminim2.flixcart.com/blobio/649/649/imr/blobio-imr_947221f4263448a5bea75d6ac83bc8c7.jpeg?q=80" class="ad-img" alt="iPhone 17 Pro">
+            <div class="ad-info">
+                <div class="ad-title">Hidden Black Sale 🌑</div>
+                <div class="ad-offer">🔥 Only at ₹999! (96% OFF)</div>
+                <div style="display:flex; gap:6px; margin-top:5px;">
+                    <button class="btn-buy" id="btnBuyAd" onclick="window.location.href='iphone.html'" style="flex:2;">Claim Link ➡️</button>
+                    <button class="btn-buy" onclick="closeAd()" style="flex:1; background:#333; color:#aaa; font-size:0.75rem; border:none;">Cancel</button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', adHTML);
+}
+
+/**
+ * Initializes Ad Popup Timer
+ */
+function initAdPopup() {
+    const userPhone = localStorage.getItem('plushieUser');
+    if (userPhone) {
+        setTimeout(() => {
+            const ad = document.getElementById('adPopup');
+            if (ad) ad.classList.add('show');
+        }, 3500); // 3.5 seconds delay
+    }
+}
+
+function closeAd() {
+    const ad = document.getElementById('adPopup');
+    if (ad) ad.classList.remove('show');
 }
 
 // --- EXISTING FUNCTIONS ---
@@ -477,19 +551,27 @@ function clearCart() {
     renderCart();
 }
 
-function addToCartGlobal(id, name, price, img, quantity = 1) {
+function addToCartGlobal(id, name, price, img, quantity = 1, suppressDrawer = false, syncQty = false) {
     const cart = getCart();
     const existing = cart.find(i => i.id === id);
     
     if (existing) {
-        existing.qty += quantity;
+        if (syncQty) {
+            existing.qty = quantity; // Sync to exact qty for Buy Now
+        } else {
+            existing.qty += quantity;
+        }
     } else {
         cart.push({ id, name, price, img, qty: quantity });
     }
     
     saveCart(cart);
     renderCart();
-    openCart(); // Show drawer immediately
+    if (typeof updateCartBadge === 'function') updateCartBadge();
+    
+    if (!suppressDrawer) {
+        openCart(); // Show drawer immediately
+    }
 }
 
 function removeFromCart(id) {
@@ -569,52 +651,153 @@ function closeCart() {
 
 function proceedToCheckoutFromCart() {
     closeCart();
-    if (typeof openCheckout === 'function') {
-        openCheckout();
-    } else {
-        const modal = document.getElementById('checkoutModal');
-        if (modal) modal.classList.add('open');
+    // Redirect to checkout page
+    const cart = JSON.parse(localStorage.getItem('plushie_cart')) || [];
+    if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
     }
+    window.location.href = 'checkout.html';
 }
 
 /**
- * Global Razorpay Payment Handler
+ * QUICK VIEW LOGIC & DATA
  */
-function payWithRazorpay(amount, name, phone, email = "customer@sachindeliveryhub.in") {
-    const options = {
-        "key": RZP_KEY_ID,
-        "amount": amount * 100, // Amount in paise
-        "currency": "INR",
-        "name": "Sachin's Delivery Hub",
-        "description": "Secure Gift Purchase",
-        "image": "https://www.hellokidology.in/cdn/shop/files/7_c1ccd535-9aeb-4dd8-8a58-77f606a7223f.jpg?v=1741688694&width=100",
-        "handler": function (response){
-            console.log("Payment Successful:", response.razorpay_payment_id);
-            // Call the page-specific finishOrder function
-            if (typeof finishOrder === 'function') {
-                finishOrder();
-            } else {
-                alert("Payment Successful! Your Order ID: " + response.razorpay_payment_id);
-            }
-        },
-        "prefill": {
-            "name": name,
-            "email": email,
-            "contact": phone
-        },
-        "theme": {
-            "color": "#e07090"
-        }
-    };
-    
-    try {
-        const rzp1 = new Razorpay(options);
-        rzp1.on('payment.failed', function (response){
-            alert("Payment Failed: " + response.error.description);
-        });
-        rzp1.open();
-    } catch (e) {
-        console.error("Razorpay Error:", e);
-        alert("Payment gateway error. Please try again.");
+const ELECTRONICS_DATA = {
+    'airpods-pro-2': {
+        name: "Apple AirPods Pro (2nd Gen)",
+        price: 249, oldPrice: 24900,
+        img: "https://rukminim2.flixcart.com/image/480/640/kpinwy80/headphone/m/5/1/mmef2hn-a-apple-original-imag3qe993fzdbcz.jpeg?q=90",
+        desc: "The absolute best in-ear headphones with Active Noise Cancellation and spatial audio. Experience magic in your ears.",
+        specs: { "Driver": "Custom high-excursion Apple driver", "Connectivity": "Bluetooth 5.3", "Battery": "Up to 6 hours", "Waterproof": "IPX4" }
+    },
+    'ps5-slim': {
+        name: "PlayStation 5 Slim Console",
+        price: 299, oldPrice: 54990,
+        img: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=500",
+        desc: "Experience lightning-fast loading with an ultra-high speed SSD and deeper immersion with haptic feedback.",
+        specs: { "Storage": "1TB SSD", "GPU": "Ray Tracing Support", "Output": "4K 120Hz", "HDR": "Yes" }
+    },
+    's24-ultra': {
+        name: "Samsung Galaxy S24 Ultra",
+        price: 299, oldPrice: 129999,
+        img: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500",
+        desc: "The ultimate smartphone experience with the built-in S Pen and the most advanced mobile camera yet.",
+        specs: { "Camera": "200MP Main", "Processor": "Snapdragon 8 Gen 3", "Display": "6.8\" AMOLED 120Hz", "Battery": "5000mAh" }
+    },
+    'watch-ultra-2': {
+        name: "Apple Watch Ultra 2",
+        price: 285, oldPrice: 89900,
+        img: "https://rukminim2.flixcart.com/image/948/948/xif0q/smartwatch/9/h/m/-original-imah4jm9xwddbggr.jpeg?q=90",
+        desc: "The most rugged and capable Apple Watch ever. Built for athletes and outdoor explorers of all kinds.",
+        specs: { "Case": "49mm Titanium", "Display": "3000 nits Peak", "Battery": "Up to 36 hours", "GPS": "Precision Dual-frequency" }
+    },
+    'sony-xm5': {
+        name: "Sony WH-1000XM5 ANC",
+        price: 264, oldPrice: 34990,
+        img: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=500",
+        desc: "Industry-leading noise cancellation and magnificent sound quality. Perfect for travel or deep focus.",
+        specs: { "ANC": "Integrated Processor V1", "Drivers": "30mm specially designed", "Battery": "30 hours", "Fast Charge": "3 mins = 3 hrs" }
+    },
+    'macbook-air-m3': {
+        name: "MacBook Air M3 (13-inch)",
+        price: 299, oldPrice: 114900,
+        img: "https://rukminim2.flixcart.com/image/948/948/xif0q/computer/g/t/w/-original-imagypv6zpfu8kzh.jpeg?q=90",
+        desc: "The world's most popular laptop is now even better with the M3 chip. Superlight and incredibly fast.",
+        specs: { "Chip": "Apple M3 8-core CPU", "RAM": "8GB Unified", "Display": "Liquid Retina 13.6\"", "Port": "MagSafe 3" }
+    },
+    'ipad-pro-m4': {
+        name: "Apple iPad Pro M4 (11\")",
+        price: 281, oldPrice: 99900,
+        img: "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/ipad-pro-model-select-gallery-2-202405?wid=5120&hei=2880&fmt=webp&qlt=90&.v=cXN0QTVTNDBtbGIzcy91THBPRThnMkpvMjZnN3E5aGRZVXJIWmhFMitJSU9WV3R2ZHdZMXRzTjZIcWdMTlg4eUJQYkhSV3V1dC9oa0s5K3lqMGtUaFYrNkhvSzBtcy9ubWtTZUpaU0lsQ2NWNTFabEhVdlFNSjJrWGh4dTRLbEk&traceId=1",
+        desc: "Unbelievably thin and powerful. Features the world's most advanced display and groundbreaking performance.",
+        specs: { "Display": "Ultra Retina XDR", "Chip": "Apple M4", "Rear Camera": "12MP Wide", "Front Camera": "Landscape 12MP" }
+    },
+    'dji-mini-4': {
+        name: "DJI Mini 4 Pro Drone",
+        price: 299, oldPrice: 95000,
+        img: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=500",
+        desc: "The Mini 4 Pro is our most advanced mini-camera drone to date. It integrates powerful imaging capabilities.",
+        specs: { "Weight": "<249g", "Obstacle Sensing": "Omnidirectional", "Video": "4K/60fps HDR", "Transmission": "20km Max" }
+    },
+    'gopro-12': {
+        name: "GoPro HERO 12 Black",
+        price: 249, oldPrice: 45000,
+        img: "https://m.media-amazon.com/images/I/61dUvabnSmL._SL1500_.jpg",
+        desc: "Best-in-class image quality, even better HyperSmooth video stabilization and a huge boost in battery performance.",
+        specs: { "Video": "5.3K60 / 4K120", "Photos": "27MP", "Stabilization": "HyperSmooth 6.0", "Waterproof": "33ft (10m)" }
+    },
+    'canon-r50': {
+        name: "Canon EOS R50 Mirrorless",
+        price: 299, oldPrice: 75995,
+        img: "images/canon_r50.png",
+        desc: "Perfect for content creators on the go. Compact, lightweight, and incredibly smart autofocus.",
+        specs: { "Sensor": "24.2MP APS-C", "AF": "Dual Pixel CMOS AF II", "Video": "4K 30p Uncropped", "Screen": "3.0\" Vari-angle" }
+    },
+    'dyson-v15': {
+        name: "Dyson V15 Detect Vacuum",
+        price: 272, oldPrice: 65990,
+        img: "https://images.unsplash.com/photo-1558317374-067fb5f30001?w=500",
+        desc: "The most powerful, intelligent cordless vacuum. Laser reveals microscopic dust you can't see.",
+        specs: { "Suction Power": "230AW", "Runtime": "Up to 60 mins", "Filtration": "HEPA whole-machine", "Laser": "Piezo Sensor" }
+    },
+    'switch-oled': {
+        name: "Nintendo Switch (OLED)",
+        price: 911, oldPrice: 32000,
+        img: "https://rukminim2.flixcart.com/image/948/948/kuipea80/gamingconsole/l/t/v/64-switch-oled-console-with-white-joy-con-nintendo-no-original-imag7mpascrk2cyy.jpeg?q=90",
+        desc: "The newest member of the Nintendo Switch family. Features a vibrant 7-inch OLED screen and enhanced audio.",
+        specs: { "Display": "7-inch OLED", "Storage": "64GB", "Mode": "TV, Tabletop, Handheld", "Joy-Con": "Detachable" }
+    },
+    'instax-12': {
+        name: "Fujifilm Instax Mini 12",
+        price: 185, oldPrice: 9999,
+        img: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500",
+        desc: "Capture the moment with a high-style, easy-to-use instant camera. Perfect for parties and travel.",
+        specs: { "Film": "instax mini film", "Exposure": "Automatic", "Flash": "Constant firing", "Lens": "2 components, 2 elements" }
+    },
+    'echo-show-10': {
+        name: "Amazon Echo Show 10",
+        price: 249, oldPrice: 24999,
+        img: "https://images.unsplash.com/photo-1589492477829-5e65395b66cc?w=500",
+        desc: "Smart display with motion. It moves with you, keeping the 10.1\" HD screen in view while you cook or call.",
+        specs: { "Screen": "10.1\" Rotating HD", "Camera": "13MP Auto-framing", "Speaker": "2.1 System", "Privacy": "Slighty built-in" }
+    },
+    'logitech-mouse': {
+        name: "Logitech G Pro X Superlight 2",
+        price: 224, oldPrice: 16995,
+        img: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500",
+        desc: "Designed with the world's leading esports pros. Engineered to win. Incredibly lightweight and precise.",
+        specs: { "Weight": "60g", "Sensor": "HERO 2", "Connectivity": "LIGHTSPEED Wireless", "Polling": "2KHz" }
     }
+};
+
+function openQuickView(id) {
+    const data = ELECTRONICS_DATA[id];
+    if (!data) return;
+
+    document.getElementById('qvTitle').innerText = data.name;
+    document.getElementById('qvPrice').innerHTML = `Rs. ${data.price} <span>Rs. ${data.oldPrice.toLocaleString()}</span>`;
+    document.getElementById('qvDesc').innerText = data.desc;
+    document.getElementById('qvImage').src = data.img;
+
+    const specsContainer = document.getElementById('qvSpecs');
+    specsContainer.innerHTML = Object.entries(data.specs).map(([key, val]) => `
+        <div class="qv-spec-item">
+            <span class="qv-spec-label">${key}</span>
+            <span class="qv-spec-val">${val}</span>
+        </div>
+    `).join('');
+
+    const addBtn = document.getElementById('qvAddToCartBtn');
+    addBtn.onclick = () => {
+        addToCartGlobal(id, data.name, data.price, data.img, 1);
+        closeQuickView();
+    };
+
+    document.getElementById('quickViewModal').classList.add('open');
+}
+
+function closeQuickView() {
+    const modal = document.getElementById('quickViewModal');
+    if (modal) modal.classList.remove('open');
 }

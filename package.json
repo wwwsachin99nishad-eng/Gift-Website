@@ -1,0 +1,24 @@
+{
+  "name": "plushieland-gift-website",
+  "version": "1.0.0",
+  "description": "Gift website with Razorpay payment integration",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "razorpay": "^2.8.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "gift",
+    "razorpay",
+    "payment"
+  ],
+  "author": "Sachin",
+  "license": "ISC"
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Successful - Plushieland</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .success-container {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            color: white;
+        }
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 0.6s ease-in-out;
+        }
+        .success-container h1 {
+            margin: 20px 0;
+            font-size: 32px;
+        }
+        .order-details {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn-primary {
+            background: white;
+            color: #764ba2;
+        }
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        @keyframes bounce {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            Plushieland Gift Store 🐇
+        </div>
+    </header>
+
+    <div class="success-container">
+        <div class="success-icon">✓</div>
+        <h1>Payment Successful!</h1>
+        <p>Thank you for your order. Your items will be shipped soon.</p>
+
+        <div class="order-details">
+            <div class="detail-row">
+                <span>Order ID:</span>
+                <span id="orderId" style="font-weight: 600;">-</span>
+            </div>
+            <div class="detail-row">
+                <span>Total Order:</span>
+                <span id="amount" style="font-weight: 600;">-</span>
+            </div>
+            <div class="detail-row" id="advancePaidRow" style="display: none;">
+                <span>Shipping Charges Paid:</span>
+                <span style="color: #4caf50; font-weight: 600;">₹59 ✓</span>
+            </div>
+            <div class="detail-row">
+                <span>Status:</span>
+                <span style="color: #4ade80; font-weight: 600;">Confirmed ✓</span>
+            </div>
+        </div>
+
+        <div style="background: #f0f8ff; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #2196F3; text-align: center;">
+            <p style="margin: 0; font-size: 14px; color: #333;">
+                <strong>ℹ️ About Shipping Charges:</strong><br>
+                ₹59 shipping charge is collected to prevent fake orders and ensure only genuine customers place orders. 
+                This helps us maintain service quality.
+            </p>
+        </div>
+
+        <div class="cta-buttons">
+            <button class="btn btn-primary" onclick="window.location.href='index.html'">
+                Continue Shopping
+            </button>
+            <button class="btn btn-secondary" onclick="downloadInvoice()">
+                Download Invoice
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const orderId = params.get('orderId');
+            const method = params.get('method') || 'ONLINE';
+            
+            const lastOrder = JSON.parse(localStorage.getItem('lastOrder'));
+            
+            if (lastOrder) {
+                document.getElementById('orderId').textContent = lastOrder.orderId || orderId;
+                
+                // Show amount info
+                if (method === 'COD' || lastOrder.paymentMethod === 'COD') {
+                    const totalAmount = parseFloat(lastOrder.amount) || 0;
+                    document.getElementById('amount').textContent = '₹' + totalAmount.toFixed(2);
+                    document.getElementById('advancePaidRow').style.display = 'flex';
+                } else {
+                    document.getElementById('amount').textContent = '₹' + (lastOrder.amount || '0');
+                }
+            }
+        });
+
+        function downloadInvoice() {
+            alert('Invoice download feature coming soon!');
+        }
+    </script>
+</body>
+</html>

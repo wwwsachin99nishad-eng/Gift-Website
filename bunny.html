@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bangles With Box with 120 Bangles and ghungroos</title>
+    <title>Bunny Cuddle Up with Comfort – Plushie Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -44,15 +44,16 @@
     </header>
 
     <div class="breadcrumb">
-        <a href="#">Home</a> › <a href="#">Jewelry</a> › Bangles Collection
+        <a href="index.html">Home</a> › <a href="#">Plushies</a> › Bunny Cuddle Up with Comfort
     </div>
 
     <section class="product-section">
+        <!-- GALLERY -->
         <div class="gallery fade-up">
             <div class="main-image-wrap" id="mainImageWrap">
                 <img id="mainImage"
-                    src="https://coveradda24.myshopify.com/cdn/shop/files/647450007_918745181206935_5826188398344680965_n.jpg?v=1773213151&width=1200"
-                    alt="Bangles With Box with 120 Bangles and ghungroos">
+                    src="https://www.hellokidology.in/cdn/shop/files/7_c1ccd535-9aeb-4dd8-8a58-77f606a7223f.jpg?v=1741688694&width=1220"
+                    alt="Bunny Cuddle Up with Comfort">
                 <button class="zoom-btn" onclick="openModal()" title="Zoom">🔍</button>
             </div>
             <div class="thumbnails" id="thumbnails"></div>
@@ -61,7 +62,7 @@
         <!-- PRODUCT INFO -->
         <div class="product-info">
             <div class="fade-up">
-                <h1 class="product-title" style="font-size:1.8rem; font-family:'Nunito', sans-serif; font-weight:900;">Bangles With Box with 120<br>Bangles and ghungroos</h1>
+                <h1 class="product-title">Bunny Cuddle Up<br>with Comfort 🐰</h1>
             </div>
             <div class="rating-row fade-up">
                 <span class="stars">★★★★★</span>
@@ -69,25 +70,17 @@
                 <span class="review-link">(6 reviews)</span>
             </div>
             <div class="price-row fade-up">
-                <span class="original-price">Rs. 3,000.00</span>
-                <span class="sale-price">Rs. 249.00</span>
-                <span class="badge-save">Sale</span>
+                <span class="original-price">Rs. 1099.00</span>
+                <span class="sale-price">Rs. 99.00</span>
+                <span class="badge-save">Save 73%</span>
             </div>
             <p class="tax-note fade-up">Tax included. <a href="#">Shipping</a> calculated at checkout.</p>
 
-            <div class="custom-fields fade-up" style="margin-top: 5px;">
-                <div style="font-weight: 800; font-size: 0.95rem; margin-bottom: 6px;">Name on Box <span style="color:var(--deep-pink);">*</span></div>
-                <input type="text" id="boxName" placeholder="Enter Name" maxlength="15" style="width:100%; max-width: 400px; padding:12px; border:2px solid #e8d0d8; border-radius:12px; font-family:'Nunito', sans-serif; font-size:0.95rem; outline:none; transition:border-color .2s; margin-bottom:4px;">
-                <div style="font-size:0.75rem; color:var(--muted); text-align:right; max-width: 400px; margin-bottom: 12px;">Limit 15 characters</div>
-
-                <div style="font-weight: 800; font-size: 0.95rem; margin-bottom: 6px;">Bangle Size <span style="color:var(--deep-pink);">*</span></div>
-                <select id="bangleSize" style="width:100%; max-width: 400px; padding:12px; border:2px solid #e8d0d8; border-radius:12px; font-family:'Nunito', sans-serif; font-size:0.95rem; outline:none; transition:border-color .2s; appearance:none; background:#fff url('data:image/svg+xml;utf8,<svg fill=%22%23e07090%22 viewBox=%220 0 24 24%22 xmlns=%22http://www.w3.org/2000/svg%22><path d=%22M7 10l5 5 5-5z%22/></svg>') no-repeat right 12px center;">
-                    <option value="" disabled selected>Select Bangle Size</option>
-                    <option value="2.2">2.2</option>
-                    <option value="2.4">2.4</option>
-                    <option value="2.6">2.6</option>
-                    <option value="2.8">2.8</option>
-                </select>
+            <div class="style-section fade-up">
+                <div class="style-label">Style: <span id="selectedStyle">Strawberry</span></div>
+                <div class="style-options">
+                    <button class="style-btn active" onclick="selectStyle(this,'Strawberry')">🍓 Strawberry</button>
+                </div>
             </div>
 
             <div class="qty-section fade-up">
@@ -126,44 +119,10 @@
 
     <!-- RECOMMENDATIONS -->
     <section class="recommendations-section fade-up">
-        <div style="max-width: 1180px; margin: 0 auto;">
-            <h2 class="reviews-title" style="margin-bottom: 30px; text-align: center;">You May Also Like ✨</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;">
-                
-                <!-- PREMIUM ELECTRONICS CATALOG (₹100-₹300) -->
-                <div class="rec-card">
-                    <span class="rec-badge">97% OFF</span>
-                    <img src="https://rukminim2.flixcart.com/image/480/640/kpinwy80/headphone/m/5/1/mmef2hn-a-apple-original-imag3qe993fzdbcz.jpeg?q=90" class="rec-img" alt="AirPods Pro 2">
-                    <div class="rec-title">Apple AirPods Pro (2nd Gen)</div>
-                    <div class="rec-price">Rs. 249 <span>Rs. 24,900</span></div>
-                    <div class="rec-btn-group">
-                        <button class="rec-btn btn-details" onclick="openQuickView('airpods-pro-2')">Details</button>
-                        <button class="rec-btn btn-add-cart" onclick="addToCartGlobal('airpods-pro-2', 'Apple AirPods Pro (2nd Gen)', 249, 'https://rukminim2.flixcart.com/image/480/640/kpinwy80/headphone/m/5/1/mmef2hn-a-apple-original-imag3qe993fzdbcz.jpeg?q=90', 1)">Add 🛒</button>
-                    </div>
-                </div>
-
-                <div class="rec-card">
-                    <span class="rec-badge">98% OFF</span>
-                    <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=500" class="rec-img" alt="PS5 Slim">
-                    <div class="rec-title">PlayStation 5 Slim Console</div>
-                    <div class="rec-price">Rs. 299 <span>Rs. 54,990</span></div>
-                    <div class="rec-btn-group">
-                        <button class="rec-btn btn-details" onclick="openQuickView('ps5-slim')">Details</button>
-                        <button class="rec-btn btn-add-cart" onclick="addToCartGlobal('ps5-slim', 'PlayStation 5 Slim', 299, 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=500', 1)">Add 🛒</button>
-                    </div>
-                </div>
-
-                <div class="rec-card">
-                    <span class="rec-badge">99% OFF</span>
-                    <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500" class="rec-img" alt="S24 Ultra">
-                    <div class="rec-title">Samsung Galaxy S24 Ultra</div>
-                    <div class="rec-price">Rs. 299 <span>Rs. 1,29,999</span></div>
-                    <div class="rec-btn-group">
-                        <button class="rec-btn btn-details" onclick="openQuickView('s24-ultra')">Details</button>
-                        <button class="rec-btn btn-add-cart" onclick="addToCartGlobal('s24-ultra', 'Samsung S24 Ultra', 299, 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500', 1)">Add 🛒</button>
-                    </div>
-                </div>
-
+        <div class="rec-container">
+            <h2 class="rec-main-title">You May Also Like 💫</h2>
+            <div class="rec-grid">
+                <!-- ELECTRONICS -->
                 <div class="rec-card">
                     <span class="rec-badge">99% OFF</span>
                     <img src="https://rukminim2.flixcart.com/image/948/948/xif0q/smartwatch/9/h/m/-original-imah4jm9xwddbggr.jpeg?q=90" class="rec-img" alt="Apple Watch Ultra 2">
@@ -296,17 +255,7 @@
                     </div>
                 </div>
 
-                <div class="rec-card">
-                    <span class="rec-badge">Best Seller</span>
-                    <img src="https://www.hellokidology.in/cdn/shop/files/7_c1ccd535-9aeb-4dd8-8a58-77f606a7223f.jpg?v=1741688694&width=300" class="rec-img" alt="Bunny Pouch">
-                    <div class="rec-title">Bunny Plushie Pouch</div>
-                    <div class="rec-price">Rs. 99 <span>Rs. 1,099</span></div>
-                    <div class="rec-btn-group">
-                        <a href="bunny.html" class="rec-btn btn-details" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">Details</a>
-                        <button class="rec-btn btn-add-cart" onclick="addToCartGlobal('bunny-pouch', 'Bunny Plushie Pouch', 99, 'https://www.hellokidology.in/cdn/shop/files/7_c1ccd535-9aeb-4dd8-8a58-77f606a7223f.jpg?v=1741688694&width=300', 1)">Add 🛒</button>
-                    </div>
-                </div>
-
+                <!-- GIFTS & SPECIALTY -->
                 <div class="rec-card">
                     <span class="rec-badge">98% OFF</span>
                     <img src="https://coveradda24.myshopify.com/cdn/shop/files/WhatsAppImage2026-01-15at1.33.34PM_fd3e5de8-1d97-4501-95ee-af4d879c958d.jpg?v=1768652364&width=300" class="rec-img" alt="Jhumka Box">
@@ -315,6 +264,17 @@
                     <div class="rec-btn-group">
                         <a href="jhumka.html" class="rec-btn btn-details" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">Details</a>
                         <button class="rec-btn btn-add-cart" onclick="addToCartGlobal('jhumka-box', 'Jhumka Box - 16 Piece', 199, 'https://coveradda24.myshopify.com/cdn/shop/files/WhatsAppImage2026-01-15at1.33.34PM_fd3e5de8-1d97-4501-95ee-af4d879c958d.jpg?v=1768652364&width=300', 1)">Add 🛒</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <span class="rec-badge">Top Pick</span>
+                    <img src="https://coveradda24.myshopify.com/cdn/shop/files/647450007_918745181206935_5826188398344680965_n.jpg?v=1773213151&width=300" class="rec-img" alt="Bangles Set">
+                    <div class="rec-title">Bangles Set with Box</div>
+                    <div class="rec-price">Rs. 249 <span>Rs. 3,000</span></div>
+                    <div class="rec-btn-group">
+                        <a href="bangles.html" class="rec-btn btn-details" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">Details</a>
+                        <button class="rec-btn btn-add-cart" onclick="addToCartGlobal('bangles-set', 'Bangles Set with Box', 249, 'https://coveradda24.myshopify.com/cdn/shop/files/647450007_918745181206935_5826188398344680965_n.jpg?v=1773213151&width=300', 1)">Add 🛒</button>
                     </div>
                 </div>
 
@@ -328,19 +288,28 @@
                         <button class="rec-btn btn-add-cart" onclick="addToCartGlobal('estailo-premium', 'Premium Estailo Fashion', 149, 'https://estailofashion.com/cdn/shop/files/4_59e5e57f-431f-4287-ab7e-eeb4fd33b0b4.jpg?v=1755532783&width=300', 1)">Add 🛒</button>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
 
+    <!-- PRODUCT DESCRIPTION -->
     <section class="product-description-section fade-up">
-        <p style="color:var(--text); font-weight:600; font-size:1.05rem; line-height: 1.6;">Elevate your jewelry collection with this exquisite set of 10 color-coordinated bangles, each crafted with traditional Kashmiri ghungroo detailing and finished in lustrous gold plating. Perfect for layering or mixing and matching, these versatile pieces complement any occasion. Personalize your gift with a custom name engraved on the elegant presentation box, making it an ideal choice for weddings, festivals, or special celebrations. Each bangle is thoughtfully designed to blend contemporary style with timeless Indian craftsmanship.</p>
+        <h3>Product Description</h3>
+        <p>Meet the Hoppy Bliss Plush: Cuddle Up with Comfort– a soft, cuddly, and transformable plush toy that doubles
+            as a cute storage pouch!</p>
+
+        <h3>Key Features</h3>
+        <ul>
+            <li>🐰 <strong>2-in-1 Design</strong> – Transforms from a fluffy bunny into a cute strawberry pouch in seconds.</li>
+            <li>🍓 <strong>Soft & Huggable Material</strong> – Made with ultra-soft, plush fabric for maximum comfort.</li>
+            <li>👜 <strong>Portable & Compact</strong> – Easily converts into a pouch for travel or storage.</li>
+        </ul>
     </section>
 
     <!-- REVIEWS -->
     <section class="reviews-section fade-up">
-        <h2 class="reviews-title">What Customers Say 💬</h2>
+        <h2 class="reviews-title">What Parents Say 💬</h2>
         <div class="reviews-grid" id="reviewsGrid"></div>
     </section>
 
@@ -355,120 +324,62 @@
 
     <!-- CHECKOUT MODAL -->
     <div class="modal-overlay" id="checkoutModal">
+        <!-- Re-using generic checkout structure -->
         <div class="checkout-box">
             <button class="modal-close checkout-close" onclick="closeCheckout()">✕</button>
             <h2 class="checkout-title">Complete Purchase</h2>
-            
-            <!-- Step 1: Delivery Details -->
             <div id="checkoutStep1">
-                <p style="margin-bottom:15px;color:var(--muted);font-size:0.9rem;">Step 1 of 2: Shipping Details</p>
-                
-                <div class="form-row">
+                 <div class="form-row">
                     <input type="text" class="checkout-input" id="custName" placeholder="Full Name">
                     <input type="tel" class="checkout-input" id="custPhone" placeholder="Mobile Number">
                 </div>
-                
                 <div class="address-box">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                        <strong style="color:var(--text); font-size:0.95rem;">Delivery Address</strong>
-                        <button class="btn-location-small" onclick="detectLocation()" title="Detect Location">📍 Auto Detect</button>
-                    </div>
-                    <input type="text" class="checkout-input" id="custHouse" placeholder="Flat, House no., Building, Apartment">
-                    <input type="text" class="checkout-input" id="custStreet" placeholder="Area, Street, Sector, Village">
-                    <input type="text" class="checkout-input" id="custLandmark" placeholder="Landmark (Optional)">
-                    <div class="form-row">
+                    <input type="text" class="checkout-input" id="custHouse" placeholder="Flat, House no.">
+                    <input type="text" class="checkout-input" id="custStreet" placeholder="Street, Area">
+                     <div class="form-row">
                         <input type="text" class="checkout-input" id="custPincode" placeholder="Pincode">
-                        <input type="text" class="checkout-input" id="custCity" placeholder="Town/City">
+                        <input type="text" class="checkout-input" id="custCity" placeholder="City">
                     </div>
                 </div>
-                
-                <button class="btn-buy" style="width:100%; margin-top:15px;" onclick="startCheckoutProcessing()">
-                    Proceed to Payment ➡️
-                </button>
+                <button class="btn-buy" style="width:100%; margin-top:15px;" onclick="startCheckoutProcessing()">Confirm ➡️</button>
             </div>
 
-            <!-- LOADING STEP -->
             <div id="checkoutLoading" style="display: none; text-align: center; padding: 40px 0;">
                 <div class="checkout-spinner"></div>
-                <h3 style="color:var(--text); margin-top:20px; font-size:1.2rem;">Securing your connection...</h3>
-                <p id="loadingText" style="color:var(--muted); font-size:0.9rem; margin-top:5px;">Connecting to secure server</p>
+                <h3 style="margin-top:20px;">Processing...</h3>
             </div>
 
-            <!-- Step 2: Payment Method Options -->
             <div id="checkoutStep2" style="display: none;">
-
-                <p style="margin-bottom:15px;color:var(--muted);font-size:0.9rem;">Step 2 of 3: Payment Method</p>
-                <div class="delivery-badge-checkout">
-                    🚚 Guaranteed Delivery: <strong id="deliveryDateStr">Tomorrow</strong>
+                 <div class="payment-amount-box">
+                    <span>Total Amount:</span>
+                    <strong id="methodAmountStr">Rs. 99</strong>
                 </div>
-                <div class="payment-amount-box">
-                    <span style="font-size:0.9rem;color:var(--muted);">Total Amount</span>
-                    <strong id="methodAmountStr">Rs. 249</strong>
-                </div>
-                
-                <h4 style="margin-bottom:12px; color:var(--text); font-family:'Nunito', sans-serif;">Select Payment Method</h4>
-                
                 <div class="payment-option selected" id="optUPI" onclick="selectPaymentMethod('UPI')">
-                    <span class="pay-icon">📱</span>
-                    <div style="flex:1;">
-                        <strong>UPI / QR Code</strong>
-                        <p style="font-size:0.8rem; color:var(--muted);">GPay, PhonePe, Paytm (Recommended)</p>
-                    </div>
-                    <div class="radio-circle" id="radioUPI"></div>
+                    <strong>UPI / QR</strong>
                 </div>
-                
-                <div class="payment-option" id="optCard" onclick="selectPaymentMethod('Card')">
-                    <span class="pay-icon">💳</span>
-                    <div style="flex:1;">
-                        <strong>Credit / Debit Card</strong>
-                        <p style="font-size:0.8rem; color:var(--muted);">Visa, MasterCard, RuPay</p>
-                    </div>
-                    <div class="radio-circle" id="radioCard"></div>
-                </div>
-                
-                <div class="payment-option" id="optCOD" onclick="selectPaymentMethod('COD')">
-                    <span class="pay-icon">💵</span>
-                    <div style="flex:1;">
-                        <strong>Cash on Delivery</strong>
-                        <p style="font-size:0.8rem; color:var(--muted);">Pay ₹59 shipping now, balance on delivery</p>
-                    </div>
-                    <div class="radio-circle" id="radioCOD"></div>
-                </div>
-                
-                <div id="codTrustNote" style="display:none; background:#fff9f5; border:1px dashed #f4a7b9; border-radius:8px; padding:10px; margin-bottom:12px; font-size:0.75rem; color:var(--deep-pink); line-height:1.3;">
-                    <strong>🛡️ Note:</strong> ₹59 advance is taken solely to prevent fake orders. This amount will be <strong>100% refunded or adjusted</strong> against your final bill upon delivery of your Cash on Delivery order.
-                </div>
-                
+                <!-- etc same methods as others -->
                 <button class="btn-buy" style="width:100%; margin-top:10px;" onclick="proceedToFinal()">
-                    <span id="btnPayText">Pay Rs. 249</span> ➡️
-                </button>
-                <button class="btn-cart" style="width:100%;margin-top:10px;background:#f0dde5;color:var(--text);box-shadow:none;" onclick="cancelPaymentSelect()">
-                    ⬅️ Back to Address
+                    <span id="btnPayText">Pay Now</span> ➡️
                 </button>
             </div>
 
-            <!-- SUCCESS SCREEN -->
             <div id="checkoutStep_Success" style="display: none; text-align:center; padding: 40px 0;">
-                <div style="font-size:4rem; margin-bottom:10px;">✅</div>
-                <h3 style="color:#4caf7d; margin-bottom:10px; font-family:'Pacifico', cursive; font-size:1.8rem;">Order Confirmed!</h3>
-                <p style="color:var(--muted);">Thank you for shopping with Plushieland.</p>
-                <p style="color:var(--text); font-weight:700; margin-top:20px;">Order ID: #PL<span id="randomOrderID"></span></p>
-                <button class="btn-buy" style="width:100%; margin-top:30px;" onclick="closeCheckout()">
-                    Continue Shopping
-                </button>
+                <div style="font-size:4rem;">✅</div>
+                <h3 style="color:#4caf7d;">Order Successful!</h3>
+                <p>Order ID: #ORD<span id="randomOrderID"></span></p>
+                <button class="btn-buy" style="width:100%; margin-top:30px;" onclick="closeCheckout()">Finish</button>
             </div>
         </div>
     </div>
 
     <footer>
-        <div class="footer-logo">Store 🛒</div>
-        <p style="margin-bottom: 8px; font-size:0.9rem;">📍 <strong>Contact & Address:</strong> Near Lovely Home, FC Road, <br>Sai Krupa Nagar, Delhi-110001</p>
-        <p style="color:var(--muted); font-size:0.8rem;">© 2024 All Rights Reserved.</p>
+        <div class="footer-logo">Plushieland Gift Store 🎁</div>
+        <p style="color:var(--muted); font-size:0.8rem;">© 2024 Plushieland Gift Store. All rights reserved.</p>
     </footer>
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="common.js"></script>
-    <script src="bangles.js"></script>
+    <script src="index.js"></script>
 </body>
 
 </html>

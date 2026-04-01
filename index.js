@@ -107,6 +107,9 @@ const images = [
   const PRICE_PER_ITEM = 99;
 
   function openCheckout() {
+    // Add/Sync Bunny in cart silently before opening checkout
+    addToCartGlobal('bunny-pouch', 'Bunny Plushie Pouch', 99, 'https://www.hellokidology.in/cdn/shop/files/7_c1ccd535-9aeb-4dd8-8a58-77f606a7223f.jpg?v=1741688694&width=300', qty, true, true);
+    
     document.getElementById('checkoutModal').classList.add('open');
     document.getElementById('checkoutStep1').style.display = 'block';
     document.getElementById('checkoutStep2').style.display = 'none';
@@ -225,6 +228,12 @@ const images = [
   }
 
   function proceedToFinal() {
+    // NEW: Modern Confirmation Warning before entering Razorpay
+    const warningMsg = `WARNING / चेतावनी:\n\nEnglish: Please use UPI Payment only to avoid transaction failures.\nHindi: भुगतान विफल होने से बचाने के लिए कृपया केवल UPI का ही उपयोग करें।`;
+    if (!confirm(warningMsg)) {
+        return; // User cancelled
+    }
+
     let finalAmt = getCartTotal();
     let upiNote = `Order%20for%20`;
 
@@ -242,7 +251,7 @@ const images = [
     } 
     else if (selectedMethod === 'COD') {
         // COD logic (Direct Success or Shipping Advance)
-        alert("COD requires ₹59 Shipping Advance. Opening Secure Payment...");
+        alert("Cash on Delivery requires ₹59 Shipping Advance. Opening Secure Payment...");
         const name = document.getElementById('custName').value.trim();
         const phone = document.getElementById('custPhone').value.trim();
         payWithRazorpay(59, name, phone);
