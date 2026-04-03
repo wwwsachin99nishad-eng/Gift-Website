@@ -116,21 +116,6 @@ async function initiatePayment() {
         return;
     }
 
-    // Show warning
-    const warningMessage = `⚠️ IMPORTANT / महत्वपूर्ण ⚠️
-
-English:
-Please use UPI or QR Code method to avoid payment failures.
-
-हिंदी:
-भुगतान विफल होने से बचने के लिए कृपया केवल UPI या QR कोड विधि का उपयोग करें।
-
-Do you want to proceed?`;
-
-    if (!confirm(warningMessage)) {
-        return;
-    }
-
     // Handle Cash on Delivery
     if (selectedPaymentMethod === 'cod') {
         handleCODPayment(totalAmount, customerName, customerEmail, customerPhone, cart);

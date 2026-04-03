@@ -168,12 +168,6 @@ const images = [
   }
 
   function proceedToFinal() {
-    // NEW: Modern Confirmation Warning before entering Razorpay
-    const warningMsg = `WARNING / चेतावनी:\n\nEnglish: Please use UPI Payment only to avoid transaction failures.\nHindi: भुगतान विफल होने से बचाने के लिए कृपया केवल UPI का ही उपयोग करें।`;
-    if (!confirm(warningMsg)) {
-        return; // User cancelled
-    }
-
     let finalAmt = getCartTotal() || PRICE_PER_ITEM;
     const name = document.getElementById('custName').value.trim();
     const phone = document.getElementById('custPhone').value.trim();
