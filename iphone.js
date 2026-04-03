@@ -42,7 +42,7 @@ const images = [
   }
 
   function addToCart() {
-    addToCartGlobal('iphone-17-pro', 'iPhone 17 Pro 1TB', 99999, 'https://www.myimaginestore.com/media/catalog/product/cache/4a48ac28cbb6e9c41470e5be5a6d3043/i/p/iphone_17_pro_cosmic_orange_pdp_image_position_1__en-in_1.jpg', qty);
+    addToCartGlobal('iphone-17-pro', 'iPhone 17 Pro 1TB', 99900, 'https://www.myimaginestore.com/media/catalog/product/cache/4a48ac28cbb6e9c41470e5be5a6d3043/i/p/iphone_17_pro_cosmic_orange_pdp_image_position_1__en-in_1.jpg', qty);
     
     // UI Feedback
     const btn = document.querySelector('.btn-cart');
@@ -145,7 +145,7 @@ const images = [
     document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
     document.getElementById('opt' + method).classList.add('selected');
     
-    let baseAmt = getCartTotal(); 
+    let baseAmt = getCartTotal() || PRICE_PER_ITEM;
     if (method === 'COD') {
         const trustNote = document.getElementById('codTrustNote');
         if (trustNote) trustNote.style.display = 'block';
@@ -154,8 +154,8 @@ const images = [
     } else {
         const trustNote = document.getElementById('codTrustNote');
         if (trustNote) trustNote.style.display = 'none';
-        document.getElementById('btnPayText').textContent = `Pay Rs. ${baseAmt}`;
-        document.getElementById('methodAmountStr').textContent = `Rs. ${baseAmt}`;
+        document.getElementById('btnPayText').textContent = `Pay Rs. ${baseAmt.toLocaleString('en-IN')}`;
+        document.getElementById('methodAmountStr').textContent = `Rs. ${baseAmt.toLocaleString('en-IN')}`;
     }
   }
 
@@ -163,7 +163,7 @@ const images = [
     const loadingEl = document.getElementById('checkoutLoading');
     if(loadingEl) loadingEl.style.display = 'none';
     
-    selectPaymentMethod('UPI'); // default
+    selectPaymentMethod('UPI'); // default (will show PRICE_PER_ITEM if cart is empty)
     document.getElementById('checkoutStep2').style.display = 'block';
   }
 
@@ -174,7 +174,7 @@ const images = [
         return; // User cancelled
     }
 
-    let finalAmt = getCartTotal(); 
+    let finalAmt = getCartTotal() || PRICE_PER_ITEM;
     const name = document.getElementById('custName').value.trim();
     const phone = document.getElementById('custPhone').value.trim();
     
