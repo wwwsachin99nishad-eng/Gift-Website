@@ -122,6 +122,9 @@ function openCheckout() {
         document.getElementById('checkoutStep1').style.display = 'block';
         document.getElementById('checkoutStep2').style.display = 'none';
         document.getElementById('checkoutLoading').style.display = 'none';
+        document.getElementById('checkoutStep_Success').style.display = 'none';
+        // Initialize payment method
+        selectPaymentMethod('UPI');
         checkoutModal.classList.add('active');
     }
 }
@@ -165,8 +168,16 @@ function selectPaymentMethod(method) {
     document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
     document.getElementById('opt' + method).classList.add('selected');
     
-    document.querySelectorAll('.radio-circle').forEach(radio => radio.style.backgroundColor = 'transparent');
-    document.getElementById('radio' + method).style.backgroundColor = 'var(--primary)';
+    document.querySelectorAll('.radio-circle').forEach(radio => {
+        radio.style.backgroundColor = 'transparent';
+        radio.style.borderColor = '#e0e0e0';
+    });
+    
+    const selectedRadio = document.getElementById('radio' + method);
+    if (selectedRadio) {
+        selectedRadio.style.backgroundColor = '#e8719b';
+        selectedRadio.style.borderColor = '#e8719b';
+    }
     
     if (method === 'COD') {
         document.getElementById('codTrustNote').style.display = 'block';
@@ -223,15 +234,25 @@ function closeCheckout() {
 
 // Close cart
 function closeCart() {
-    document.querySelector('.modal-overlay').classList.remove('active');
+    const checkoutModal = document.getElementById('checkoutModal');
+    if (checkoutModal) {
+        checkoutModal.classList.remove('active');
+    }
 }
 
 // Show modal
 function showModal(content) {
-    const modal = document.querySelector('[id="checkoutModal"]') || createCartModal();
-    const box = document.querySelector('.checkout-box');
-    box.innerHTML = `<button class="modal-close checkout-close" onclick="closeCart()">✕</button>${content}`;
-    modal.classList.add('active');
+    const modal = document.getElementById('checkoutModal');
+    if (modal) {
+        const box = modal.querySelector('.checkout-box');
+        box.innerHTML = `<button class="modal-close checkout-close" onclick="closeCart()">✕</button>${content}`;
+        // Hide all checkout steps to show cart content
+        document.getElementById('checkoutStep1').style.display = 'none';
+        document.getElementById('checkoutStep2').style.display = 'none';
+        document.getElementById('checkoutLoading').style.display = 'none';
+        document.getElementById('checkoutStep_Success').style.display = 'none';
+        modal.classList.add('active');
+    }
 }
 
 // Create cart modal

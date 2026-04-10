@@ -545,6 +545,24 @@ footer p {
     gap: 12px;
 }
 
+.btn-location-small {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--text);
+    font-weight: 600;
+}
+
+.btn-location-small:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
 .btn-buy,
 .btn-cart {
     width: 100%;
@@ -577,6 +595,70 @@ footer p {
 
 .btn-cart:hover {
     background: var(--bg-light);
+}
+
+/* ===== PAYMENT OPTIONS ===== */
+.payment-option {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding: 15px;
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: all 0.2s;
+}
+
+.payment-option:hover {
+    border-color: var(--primary);
+    background: var(--bg-light);
+}
+
+.payment-option.selected {
+    border-color: var(--primary);
+    background: #fff5f8;
+}
+
+.pay-icon {
+    font-size: 1.8rem;
+}
+
+.radio-circle {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    background: white;
+    transition: all 0.2s;
+}
+
+.payment-option.selected .radio-circle {
+    border-color: var(--primary);
+    background: var(--primary);
+}
+
+/* ===== DELIVERY BADGE ===== */
+.delivery-badge-checkout {
+    background: #e8f5e9;
+    border: 1.5px dashed #4caf7d;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.payment-amount-box {
+    background: var(--bg-light);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* ===== ANIMATIONS ===== */
